@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La Mesa — Invitación privada</title>
+<style>
+:root { color-scheme: light dark; --felt:#291014; --wine:#721f30; --gold:#d7b56d; --paper:light-dark(#f4efe5,#eee5d2); --muted:light-dark(#645f55,#bdb4a2); --panel:light-dark(#fffaf0,#151a18); --line:light-dark(#d7cdbb,#39423c); }
+* { box-sizing:border-box; }
+html,body { margin:0; min-height:100%; }
+body { background:light-dark(#e9e0d0,#080607); color:var(--paper); font-family:Georgia,'Times New Roman',serif; }
+.root { min-height:100vh; width:100%; background:radial-gradient(ellipse at 50% 12%, #40151f 0%, #190b10 42%, #080607 100%); padding:22px; display:flex; justify-content:center; align-items:center; overflow:hidden; position:relative; isolation:isolate; }
+.root:before { content:'♠'; position:fixed; z-index:-1; left:-.08em; bottom:-.48em; font-size:min(80vw,720px); line-height:1; color:#ffffff04; transform:rotate(-12deg); pointer-events:none; }
+.shell { width:min(100%,780px); border:1px solid rgba(215,181,109,.65); padding:clamp(20px,5vw,48px); position:relative; text-align:center; box-shadow:0 0 0 7px rgba(215,181,109,.05),0 25px 80px #0008; animation:reveal 1.1s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes reveal { from { opacity:0; transform:translateY(18px) scale(.985); filter:blur(5px); } to { opacity:1; transform:translateY(0) scale(1); filter:blur(0); } }
+@keyframes cardIn { from { opacity:0; transform:translateY(-22px) rotateY(70deg); } to { opacity:1; transform:translateY(0) rotateY(0); } }
+@keyframes pulse { 0%,100% { box-shadow:0 0 0 0 #b52b4430; } 50% { box-shadow:0 0 0 8px #b52b4410; } }
+.shell:before,.shell:after { content:'✦'; position:absolute; color:var(--gold); font-size:18px; top:12px; }.shell:before{left:14px}.shell:after{right:14px}
+.topline { font:600 11px/1.5 Arial,sans-serif; letter-spacing:.32em; text-transform:uppercase; color:var(--gold); }
+.suits { display:flex; justify-content:center; gap:13px; margin:24px 0 14px; font-size:clamp(24px,5vw,38px); perspective:500px; }
+.suits span { display:inline-block; animation:cardIn .8s both; }.suits span:nth-child(2){animation-delay:.12s}.suits span:nth-child(3){animation-delay:.24s}.suits span:nth-child(4){animation-delay:.36s}
+.suits span:nth-child(odd) { color:#e8dfcf; }.suits span:nth-child(even) { color:#c84a43; }
+h1 { font-size:clamp(42px,9vw,78px); line-height:.92; letter-spacing:.015em; font-weight:normal; margin:12px 0 14px; text-transform:uppercase; }
+h1 em { color:var(--gold); font-style:normal; }
+.subtitle { font:12px/1.8 Arial,sans-serif; letter-spacing:.22em; text-transform:uppercase; color:#d7c8aa; }
+.rule { height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); margin:27px auto; max-width:440px; }
+.copy { max-width:490px; margin:0 auto; font-size:clamp(17px,3vw,21px); line-height:1.55; color:#e7dfd0; }
+.copy strong { color:var(--gold); font-weight:normal; }
+.details { display:flex; justify-content:center; gap:12px 28px; flex-wrap:wrap; margin:25px 0 16px; font:11px/1.5 Arial,sans-serif; letter-spacing:.14em; text-transform:uppercase; color:#d9cfbd; }
+.details span:before { color:var(--gold); content:'◆'; font-size:8px; margin-right:9px; vertical-align:2px; }
+.countdown { display:flex; justify-content:center; gap:10px; margin:16px auto 28px; }
+.timebox { min-width:70px; padding:12px 9px 10px; border:1px solid #b64a5b66; background:#250c12aa; }
+.timebox strong { display:block; color:#f3d9d5; font:normal clamp(22px,5vw,30px)/1.2 Georgia,serif; }
+.timebox span { display:block; margin-top:5px; color:#c7a9a5; font:9px Arial,sans-serif; letter-spacing:.15em; text-transform:uppercase; }
+.countdown-note { color:#bda5a1; font:10px/1.5 Arial,sans-serif; letter-spacing:.1em; text-transform:uppercase; margin:-17px 0 26px; }
+.form { max-width:440px; margin:0 auto; text-align:left; }
+label { display:block; color:var(--gold); font:11px Arial,sans-serif; text-transform:uppercase; letter-spacing:.17em; margin-bottom:9px; }
+input { width:100%; padding:15px 14px; background:#10090c; border:1px solid #70404a; color:#fff7e7; font:16px Arial,sans-serif; border-radius:0; outline:none; }
+input:focus { border-color:var(--gold); box-shadow:0 0 0 2px #d7b56d22; }
+button { margin-top:12px; width:100%; padding:15px 18px; border:1px solid var(--gold); background:var(--gold); color:#10130f; font:700 11px Arial,sans-serif; text-transform:uppercase; letter-spacing:.18em; cursor:pointer; transition:transform .15s,background .15s; }
+button:hover { background:#edcf8b; transform:translateY(-1px); }
+button:focus-visible { outline:2px solid #fff0c4; outline-offset:3px; }
+.share-button { background:transparent; color:var(--gold); border-color:#70404a; }
+.share-button:hover { background:#39121c; }
+.message { min-height:22px; text-align:center; margin:12px 0 0; font:13px/1.5 Arial,sans-serif; color:#e6d4a9; }
+.roster { margin:30px auto 0; max-width:440px; text-align:left; border-top:1px solid #ffffff24; padding-top:18px; }
+.roster-head { display:flex; justify-content:space-between; gap:10px; font:10px Arial,sans-serif; letter-spacing:.17em; text-transform:uppercase; color:#c9b98f; }
+.players { list-style:none; margin:12px 0 0; padding:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:8px; }
+.players li { padding:10px 12px; border:1px solid #ffffff20; background:#ffffff08; color:#eee5d2; font:13px Arial,sans-serif; overflow-wrap:anywhere; animation:reveal .35s both; }
+.empty { grid-column:1/-1; color:#a9aa9d; font:12px Arial,sans-serif; padding:8px 0; }
+.foot { margin:29px 0 0; color:#9fa397; font:10px/1.8 Arial,sans-serif; letter-spacing:.08em; }
+.foot b { color:var(--gold); font-weight:normal; }
+@media(max-width:480px){.root{padding:12px}.shell{padding:28px 17px}.details{gap:10px 16px}.topline{letter-spacing:.2em}.timebox{min-width:0;flex:1;padding:10px 5px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main class="root">
+<section class="shell" aria-labelledby="title">
+  <div class="topline">Expediente reservado · Acceso por invitación</div>
+  <div class="suits" aria-hidden="true"><span>♠</span><span>♥</span><span>♣</span><span>♦</span></div>
+  <h1 id="title">La <em>Mesa</em><br>Clandestina</h1>
+  <div class="subtitle">Una mesa · Pocas palabras · Ninguna garantía</div>
+  <div class="rule"></div>
+  <p class="copy">Hay invitaciones que no se anuncian en voz alta. Esta tarde, las cartas hablarán y los nervios harán lo suyo. <strong>Tu asiento te espera.</strong><br>¿Te atreves a jugar?</p>
+  <div class="details"><span>Esta tarde</span><span>Acceso reservado</span><span>Mantén la compostura</span></div>
+  <div class="countdown" aria-label="Cuenta regresiva para esta tarde">
+    <div class="timebox"><strong id="hours">--</strong><span>Horas</span></div>
+    <div class="timebox"><strong id="minutes">--</strong><span>Minutos</span></div>
+    <div class="timebox"><strong id="seconds">--</strong><span>Segundos</span></div>
+  </div>
+  <p class="countdown-note" id="countdownNote">La cuenta atrás termina hoy a las 7:00 p. m. · Hora orientativa</p>
+  <form class="form" id="joinForm">
+    <label for="playerName">Registra tu alias para la mesa</label>
+    <input id="playerName" name="playerName" maxlength="28" autocomplete="nickname" placeholder="Tu nombre o apodo…" required>
+    <button type="submit">♠ Confirmar mi asiento ♠</button>
+    <p class="message" id="message" aria-live="polite"></p>
+    <button class="share-button" type="button" id="shareButton">↗ Compartir invitación</button>
+  </form>
+  <section class="roster" aria-label="Jugadores inscritos">
+    <div class="roster-head"><span>La lista de jugadores</span><span id="count">0 confirmados</span></div>
+    <ul class="players" id="players"><li class="empty">La primera ficha está por caer…</li></ul>
+  </section>
+  <p class="foot">La ubicación se comparte en privado.<br><b>Ven por las cartas. Quédate por la historia.</b><br><span id="soundStatus">Sonido desactivado hasta tu primer registro.</span></p>
+</section>
+</main>
+<script>
+const form = document.getElementById('joinForm');
+const input = document.getElementById('playerName');
+const list = document.getElementById('players');
+const count = document.getElementById('count');
+const message = document.getElementById('message');
+const players = [];
+const soundStatus = document.getElementById('soundStatus');
+let audioContext = null;
+function playConfirmation(){
+  try {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) { soundStatus.textContent='Efectos de sonido no disponibles en este navegador.'; return; }
+    audioContext = audioContext || new AudioCtx();
+    if (audioContext.state === 'suspended') audioContext.resume();
+    const now = audioContext.currentTime;
+    [523.25,659.25,783.99].forEach((frequency,index)=>{
+      const oscillator=audioContext.createOscillator();
+      const gain=audioContext.createGain();
+      oscillator.type='sine'; oscillator.frequency.value=frequency;
+      gain.gain.setValueAtTime(.0001,now+index*.11);
+      gain.gain.exponentialRampToValueAtTime(.075,now+index*.11+.025);
+      gain.gain.exponentialRampToValueAtTime(.0001,now+index*.11+.22);
+      oscillator.connect(gain); gain.connect(audioContext.destination);
+      oscillator.start(now+index*.11); oscillator.stop(now+index*.11+.24);
+    });
+    soundStatus.textContent='Confirmación sonora activada.';
+  } catch (error) { soundStatus.textContent='Registro confirmado. Sonido no disponible.'; }
+}
+function updateCountdown(){
+  const now=new Date();
+  const target=new Date(now.getFullYear(),now.getMonth(),now.getDate(),19,0,0);
+  if(now>=target) target.setDate(target.getDate()+1);
+  const remaining=Math.max(0,target-now);
+  document.getElementById('hours').textContent=String(Math.floor(remaining/3600000)).padStart(2,'0');
+  document.getElementById('minutes').textContent=String(Math.floor((remaining%3600000)/60000)).padStart(2,'0');
+  document.getElementById('seconds').textContent=String(Math.floor((remaining%60000)/1000)).padStart(2,'0');
+}
+document.getElementById('shareButton').addEventListener('click',async()=>{
+  const shareData={title:'La Mesa Clandestina',text:'La invitación está abierta. Registra tu alias y confirma tu asiento en La Mesa Clandestina.',url:window.location.href};
+  try {
+    if(navigator.share) await navigator.share(shareData);
+    else if(navigator.clipboard && window.isSecureContext){ await navigator.clipboard.writeText(shareData.text+' '+shareData.url); message.textContent='Invitación copiada. Ya puedes pegarla en WhatsApp.'; }
+    else { message.textContent='Copia el enlace de la barra del navegador y compártelo por WhatsApp.'; }
+  } catch(error) { if(error.name!=='AbortError') message.textContent='Copia el enlace del navegador para compartir la invitación.'; }
+});
+updateCountdown();
+setInterval(updateCountdown,1000);
+function renderPlayers(){
+  list.replaceChildren();
+  if (!players.length) {
+    const empty = document.createElement('li'); empty.className='empty'; empty.textContent='La primera ficha está por caer…'; list.appendChild(empty);
+  } else {
+    players.forEach((name, index) => {
+      const item = document.createElement('li'); item.textContent = String(index + 1).padStart(2,'0') + '  ·  ' + name; list.appendChild(item);
+    });
+  }
+  count.textContent = players.length + (players.length === 1 ? ' confirmado' : ' confirmados');
+}
+form.addEventListener('submit', event => {
+  event.preventDefault();
+  const name = input.value.trim().replace(/\s+/g,' ');
+  if (!name) { message.textContent='Escribe tu nombre para reservar tu asiento.'; return; }
+  if (players.some(p => p.toLocaleLowerCase('es') === name.toLocaleLowerCase('es'))) { message.textContent='Ese alias ya está en la lista. ¡Te tenemos fichado!'; return; }
+  players.push(name);
+  renderPlayers();
+  message.textContent = 'Asiento confirmado, ' + name + '. Nos vemos en la mesa.';
+  playConfirmation();
+  input.value='';
+});
+</script>
+</body>
+</html>
